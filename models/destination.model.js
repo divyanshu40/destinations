@@ -13,7 +13,7 @@ const destinationSchema = new mongoose.Schema({
     attractions: {
         type: [String]
     },
-    plot: {
+    description: {
         type: String
     }
 });
