@@ -43,6 +43,12 @@ async function getDestinationById(destinationId) {
     return destination;
 }
 
+// function to delete destination by ID from the database
+async function deleteDestinationByID(destinationID) {
+    let deletedDestination = await destinationModel.findByIdAndDelete(destinationID);
+    return deletedDestination;
+}
+
 // POST Route to add new destination to the database
 app.post("/destination/new", async (req, res) => {
     let destinationData = req.body;
@@ -85,6 +91,20 @@ app.get("/destination/details/:id", async (req, res) => {
         let response = await getDestinationById(destinationId);
         if (response === null) {
             return res.status(404).json({ message: "Destination not found" });
+        }
+        return res.status(200).json(response);
+    } catch(error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// DELETE route to delete a destination from the database
+app.delete("/destination/delete/:id", async (req, res) => {
+    let destinationId = req.params.id;
+    try {
+        let response = await deleteDestinationByID(destinationId);
+        if (response === null) {
+            return res.status(404).json({ message: "Destination cannot be deleted"});
         }
         return res.status(200).json(response);
     } catch(error) {
