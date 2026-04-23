@@ -49,6 +49,7 @@ async function deleteDestinationByID(destinationID) {
     return deletedDestination;
 }
 
+
 // POST Route to add new destination to the database
 app.post("/destination/new", async (req, res) => {
     let destinationData = req.body;
